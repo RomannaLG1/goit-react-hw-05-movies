@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { HiSearch } from "react-icons/hi";
+
 
 export const Wrapper = styled.div`
   display: inline-flex;
@@ -11,13 +11,16 @@ export const Wrapper = styled.div`
 
 export const Input = styled.input`
   padding: 8px 32px 8px 8px;
+  width: 300px;
   border-radius: 4px;
   font: inherit;
 `;
-
-export const Icon = styled(HiSearch)`
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 6px;
-`;
+export const Button = styled.button`
+width: 50px;
+padding: 5px;
+background-color: transparent;
+border: none;
+cursor: pointer;
+position: absolute;
+right: 1px;
+`
