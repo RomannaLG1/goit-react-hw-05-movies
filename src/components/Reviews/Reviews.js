@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import * as API from '../../api-service';
 import Box from 'components/Box';
 import { toast } from 'react-toastify';
+import { List, Title, Text } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -25,16 +26,16 @@ const Reviews = () => {
 
   return (
     <Box as="section">
-      <ul>
+      <List>
         {reviews.map(({ id, author, content }) => {
           return (
             <li key={id}>
-              <p>{author}</p>
-              <p>{content}</p>
+              <Title>{author}</Title>
+              <Text>{content}</Text>
             </li>
           );
         })}
-      </ul>
+      </List>
     </Box>
   );
 };

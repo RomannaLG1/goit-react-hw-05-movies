@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as API from '../../api-service';
 import Box from 'components/Box';
-import { List, Item, Image } from './Cast.styled';
+import { List, Item, Image, Text } from './Cast.styled';
 import { toast } from 'react-toastify';
 import defaultImg from '../image/defaultImg.png';
 
@@ -36,8 +36,8 @@ const Cast = () => {
                 src={profile_path? `https://image.tmdb.org/t/p/w500${profile_path}` : defaultImg}
                 alt={name}
               />
-              <p>{name}</p>
-              <p>{character}</p>
+              <Text>{name}</Text>
+              <Text>{character}</Text>
             </Item>
           );
         })}

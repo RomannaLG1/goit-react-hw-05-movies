@@ -19,3 +19,7 @@ export const Image = styled.img`
       height: 374px;
       object-fit: cover;
 `;
+
+export const Text = styled.p`
+font-size: 16px;
+`
