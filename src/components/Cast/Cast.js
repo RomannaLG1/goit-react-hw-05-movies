@@ -35,6 +35,7 @@ const Cast = () => {
               <Image
                 src={profile_path? `https://image.tmdb.org/t/p/w500${profile_path}` : defaultImg}
                 alt={name}
+                width='195'
               />
               <Text>{name}</Text>
               <Text>{character}</Text>
@@ -47,3 +48,7 @@ const Cast = () => {
 };
 
 export default Cast;
+
+
+
+

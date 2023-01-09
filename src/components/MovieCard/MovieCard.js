@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { BsStar } from 'react-icons/bs';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Wrapper, Image, Title, Text, List, Item } from './MovieCard.styled';
+import { Loader } from '../Loader/Loader';
 
 export const MovieCard = ({ movie }) => {
   const { poster_path, title, release_date, vote_average, overview } = movie;
@@ -38,7 +39,7 @@ export const MovieCard = ({ movie }) => {
         </Box>
       </Wrapper>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader/>}>
         <Outlet />
       </Suspense>
     </>

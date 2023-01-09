@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Container, Header, Wrapper, Logo, Link } from './SharedLayout.styled';
 import { MdLocalMovies } from 'react-icons/md';
+import { Loader } from '../Loader/Loader';
 
 export const SharedLayout = () => {
   return (
@@ -19,7 +20,7 @@ export const SharedLayout = () => {
           <Link to="/movies">Movies</Link>
         </nav>
       </Header>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader/>}>
         <Outlet />
       </Suspense>
     </Container>
