@@ -4,19 +4,29 @@ import * as API from '../api-service';
 import { Item, List, Image } from './Home.styled';
 import { Loader } from '../components/Loader/Loader';
 import { toast } from 'react-toastify';
+import { BasicPagination } from 'components/Pagination/Pagination';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  // const [page, setPage] = useState(parseInt(props.location.search?.split('=')[1] || 1));
+  const [page, setPage] = useState(1);
+  const [pageQty, setPageQty] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchMovies = async page => {
       try {
         setIsLoading(true);
-        const movies = await API.fetchPopularMovies();
-        setMovies(movies);
+        const movies = await API.fetchPopularMovies(page);
+        console.log(movies);
+        setMovies(movies.results);
+        setPageQty(movies.total_pages);
+        if(movies.total_pages < page) {
+          setPage(1);
+        }
+
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -24,8 +34,9 @@ const Home = () => {
         setIsLoading(false);
       }
     };
-    fetchMovies();
-  }, []);
+    fetchMovies(page);
+    // console.log(pageQty);
+  }, [page, pageQty]);
 
   return (
     <main>
@@ -46,6 +57,14 @@ const Home = () => {
             </Item>
           ))}
         </List>
+      )}
+      {pageQty > 0 && (
+        <BasicPagination
+          count={pageQty}
+          page={page}
+          onChange={(_, num) => setPage(num)}
+          navLink={NavLink}
+        />
       )}
     </main>
   );

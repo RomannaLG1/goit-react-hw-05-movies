@@ -14,20 +14,29 @@ axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 axios.defaults.params = {
   api_key: API_KEY,
   language: 'en-US',
-  page: 1,
+  // page: 1,
   
 };
 
-export const fetchPopularMovies = async () => {
-  const { data } = await axios.get(`/trending/movie/week?`);
-  return data.results;
-};
+// https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
 
-export const fetchMovieToSearch = async searchQuery => {
+// https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
+
+// export const fetchPopularMovies = async (page) => {
+//   const { data } = await axios.get(`/trending/movie/week?page=${page}`);
+//   return data.results;
+// };
+
+
+export const fetchPopularMovies = async (page) => {
+  const {data} = await axios.get(`/trending/movie/week?page=${page}`);
+  return data;
+};
+export const fetchMovieToSearch = async (searchQuery, page) => {
   const { data } = await axios.get(
-    `/search/movie?&query=${searchQuery}`
+    `/search/movie?&query=${searchQuery}&page=${page}`
   );
-  return data.results;
+  return data;
 };
 
 export const fetchMovieById = async id => {

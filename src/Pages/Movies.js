@@ -7,13 +7,17 @@ import { SearchBox } from '../components/SearchBox/SearchBox';
 import { Loader } from '../components/Loader/Loader';
 import { toast } from 'react-toastify';
 import defaultImg from '../components/image/defaultImg.png';
+import { BasicPagination } from 'components/Pagination/PaginationSearch';
 
-const Movies = () => {
+const Movies = (props) => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+  const [pageQty, setPageQty] = useState(0);
   const movieQuery = searchParams.get('query');
+  // const moviePage = searchParams.get('page');
   const location = useLocation();
 
   useEffect(() => {
@@ -21,14 +25,18 @@ const Movies = () => {
       return;
     }
 
-    const fetchMovies = async searchQuery => {
+    const fetchMovies = async (searchQuery, page) => {
       try {
         setIsLoading(true);
-        const movies = await API.fetchMovieToSearch(searchQuery);
+        const movies = await API.fetchMovieToSearch(searchQuery, page);
         if (movies.length === 0) {
           toast("We don't found any films");
         }
-        setMovies(movies);
+        setMovies(movies.results);
+        setPageQty(movies.total_pages);
+        if(movies.total_pages < page) {
+          setPage(1);
+        }
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -36,16 +44,22 @@ const Movies = () => {
         setIsLoading(false);
       }
     };
-    fetchMovies(movieQuery);
-  }, [movieQuery]);
+    fetchMovies(movieQuery, page);
+  }, [movieQuery, page]);
 
-  const handleSubmit = query => {
-    if (!query) {
+  const handleSubmit = (query='', page=1) => {
+
+    if (!query ) {
       console.log('enter value');
       return;
     }
-    setSearchParams(query !== '' ? { query } : {});
+
+    console.log('query', query);
+    // setSearchParams((query !== '' ? { query } : {}) || (page !== 1 ? { page } : 1));
+    setSearchParams(`query=${query}&page=${page}`)
+   
     setMovies([]);
+    
   };
 
   return (
@@ -68,6 +82,15 @@ const Movies = () => {
             </Item>
           ))}
         </List>
+      )}
+         {pageQty > 0 && (
+        <BasicPagination
+          count={pageQty}
+          page={page}
+          onChange={(_, num) => setPage(num)}
+          navLink={NavLink}
+          query={movieQuery}
+        />
       )}
     </main>
   );
