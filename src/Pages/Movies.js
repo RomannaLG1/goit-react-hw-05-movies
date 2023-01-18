@@ -1,7 +1,7 @@
 import * as API from '../api-service';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Item, List, Image } from './Home.styled';
+import { Item, List, Image, Wrapper } from './Home.styled';
 import { useSearchParams } from 'react-router-dom';
 import { SearchBox } from '../components/SearchBox/SearchBox';
 import { Loader } from '../components/Loader/Loader';
@@ -19,6 +19,10 @@ const Movies = (props) => {
   const movieQuery = searchParams.get('query');
   // const moviePage = searchParams.get('page');
   const location = useLocation();
+  const ref = useRef (null);
+  useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  }, [page, movieQuery]);
 
   useEffect(() => {
     if (!movieQuery) {
@@ -69,6 +73,7 @@ const Movies = (props) => {
       {isLoading && <Loader />}
       {movies && (
         <List>
+          <Wrapper ref={ref}> 
           {movies.map(({ poster_path, title, id }) => (
             <Item key={id}>
               <NavLink to={`${id}`} state={{ from: location }}>
@@ -81,7 +86,9 @@ const Movies = (props) => {
               </NavLink>
             </Item>
           ))}
+          </Wrapper>
         </List>
+
       )}
          {pageQty > 0 && (
         <BasicPagination

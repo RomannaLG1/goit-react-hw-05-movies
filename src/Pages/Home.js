@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import * as API from '../api-service';
-import { Item, List, Image } from './Home.styled';
+import { Item, List, Image, Wrapper } from './Home.styled';
 import { Loader } from '../components/Loader/Loader';
 import { toast } from 'react-toastify';
 import { BasicPagination } from 'components/Pagination/Pagination';
@@ -14,6 +14,10 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [pageQty, setPageQty] = useState(0);
   const location = useLocation();
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  }, [page]);
 
   useEffect(() => {
     const fetchMovies = async page => {
@@ -43,7 +47,8 @@ const Home = () => {
       {error && toast.error('Something wrong...Try again')}
       {isLoading && <Loader />}
       {movies && (
-        <List>
+        <List >
+          <Wrapper ref={ref}>
           {movies.map(({ poster_path, title, id }) => (
             <Item key={id}>
               <NavLink to={`movies/${id}`} state={{ from: location }}>
@@ -56,6 +61,7 @@ const Home = () => {
               </NavLink>
             </Item>
           ))}
+          </Wrapper>
         </List>
       )}
       {pageQty > 0 && (
