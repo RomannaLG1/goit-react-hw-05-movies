@@ -13,7 +13,7 @@ export const SigUpForm = () => {
   const handleSubmit = (email, password) => {
   
     // const auth = getAuth();
-    // console.log('auth', auth);
+    console.log('auth', auth);
     createUserWithEmailAndPassword(auth, email, password)
       .then(({user}) => {
         console.log('user', user);
