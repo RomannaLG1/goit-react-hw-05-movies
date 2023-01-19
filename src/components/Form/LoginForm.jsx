@@ -2,14 +2,15 @@ import { useDispatch } from 'react-redux';
 import { setUser } from 'redux/userSlice';
 import {useNavigate} from 'react-router-dom';
 import { Form } from './Form';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {  signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import {auth} from '../../firebase'
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const handleSubmit = (email, password) => {
-    const auth = getAuth();
+    // const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
     .then(({user}) => {
         console.log('user', user);
