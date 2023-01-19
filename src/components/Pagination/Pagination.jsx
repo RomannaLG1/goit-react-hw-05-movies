@@ -14,7 +14,7 @@ export const BasicPagination = ({ count, page, onChange, navLink }) => {
         renderItem={item => (
           <PaginationItem
             component={navLink}
-            to={`/?page=${item.page}`}
+            to={`/home/?page=${item.page}`}
             {...item}
           />
         )}
