@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Register } from 'Pages/Register';
 import { Login } from 'Pages/Login';
 import { Start } from 'Pages/Start';
+import { RestrictedRoute } from 'Route/RestrictedRoute';
+import { PrivateRoute } from 'Route/PrivateRoute';
 const Home = lazy(() => import('../../Pages/Home'));
 const Movies = lazy(() => import('../../Pages/Movies'));
 const MovieDetails = lazy(() => import('../../Pages/MovieDetails'));
@@ -19,12 +21,30 @@ export const App = () => {
         {' '}
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Start />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute redirectTo="/home" component={<Register />} />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute redirectTo="/home" component={<Login />} />
+            }
+          />
 
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={<PrivateRoute redirectTo="/login" component={<Home />} />}
+          />
 
-          <Route path="movies" element={<Movies />} />
+          <Route
+            path="movies"
+            element={
+              <PrivateRoute redirectTo="/login" component={<Movies />} />
+            }
+          />
           <Route path="movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />

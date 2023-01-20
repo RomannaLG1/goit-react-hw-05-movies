@@ -25,6 +25,7 @@ export const Header = styled.header`
 
   > nav {
     display: flex;
+    align-items: center;
   }
 `;
 
