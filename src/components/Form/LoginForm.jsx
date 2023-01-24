@@ -1,29 +1,37 @@
+import { useEffect} from 'react';
 import { useDispatch } from 'react-redux';
-import { setUser } from 'redux/userSlice';
-import {useNavigate} from 'react-router-dom';
 import { Form } from './Form';
-import {  signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import {auth} from '../../firebase'
+import { login } from 'redux/operations';
+import { refreshUser } from 'redux/userSlice';
+
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const handleSubmit = (email, password) => {
-    // const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-    .then(({user}) => {
-        console.log('user', user);
-        dispatch(setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken
 
-        }));
-        navigate('/home')
-      })
-      .catch(() => toast.error('Invalid user'));
+
+  useEffect(() => {
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      dispatch(refreshUser(currentUser));
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch]);
+
+  const handleSubmit = async (email, password) => {
+    dispatch(login({ email, password })).catch(() =>
+      toast.error('Invalid user')
+    );
   };
 
-  return( <Form event='Login' onSubmit={handleSubmit}/>);
+  return (
+    <>
+      <Form event="Login" onSubmit={handleSubmit} />
+    </>
+  );
 };

@@ -6,11 +6,18 @@ import { Loader } from '../Loader/Loader';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from 'hooks/useAuth';
 import { useDispatch } from 'react-redux';
-import { removeUser } from '../../redux/userSlice';
+import { logOut } from 'redux/operations';
+
 
 export const SharedLayout = () => {
-  const { isAuth, email } = useAuth();
+  const { isLoggedIn, email } = useAuth();
   const dispatch = useDispatch();
+
+
+  const handleClick = () => {
+    dispatch(logOut());
+
+  }
   return (
     <Container>
       <Header>
@@ -22,8 +29,8 @@ export const SharedLayout = () => {
         </Link>
 
         <nav>
-          {console.log('isAuth', isAuth)}
-          {isAuth ? (
+          {console.log('isAuth', isLoggedIn)}
+          {isLoggedIn ? (
             <>
               {' '}
               <Link to="/home" end>
@@ -31,7 +38,7 @@ export const SharedLayout = () => {
               </Link>
               <Link to="/movies">Movies</Link>
               <p>User: {email}</p>
-              <button type="button" onClick={() => dispatch(removeUser())}>
+              <button type="button" onClick={handleClick}>
                 Logout
               </button>
             </>
@@ -54,3 +61,5 @@ export const SharedLayout = () => {
     </Container>
   );
 };
+
+

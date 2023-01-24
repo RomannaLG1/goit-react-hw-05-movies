@@ -51,7 +51,7 @@ const Home = () => {
           <Wrapper ref={ref}>
           {movies.map(({ poster_path, title, id }) => (
             <Item key={id}>
-              <NavLink to={`movies/${id}`} state={{ from: location }}>
+              <NavLink to={`/movies/${id}`} state={{ from: location }}>
                 {' '}
                 <Image
                   src={`https://image.tmdb.org/t/p/w500/${poster_path}`}

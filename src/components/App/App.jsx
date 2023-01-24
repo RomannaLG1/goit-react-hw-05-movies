@@ -35,7 +35,7 @@ export const App = () => {
           />
 
           <Route
-            path="/home"
+            path="home"
             element={<PrivateRoute redirectTo="/login" component={<Home />} />}
           />
 
@@ -45,12 +45,35 @@ export const App = () => {
               <PrivateRoute redirectTo="/login" component={<Movies />} />
             }
           />
-          <Route path="movies/:movieId" element={<MovieDetails />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
+          <Route
+            path="movies/:movieId"
+            element={
+              <PrivateRoute redirectTo="/login" component={<MovieDetails />} />
+            }
+          >
+            <Route
+              path="cast"
+              element={
+                <PrivateRoute redirectTo="/login" component={<Cast />} />
+              }
+            />
+            <Route
+              path="reviews"
+              element={
+                <PrivateRoute redirectTo="/login" component={<Reviews />} />
+              }
+            />
           </Route>
         </Route>
-        <Route path="*" element={<Navigate to={'/'} />} />
+        <Route
+          path="*"
+          element={
+            <RestrictedRoute
+              redirectTo="/"
+              component={<Navigate to={'/'} />}
+            />
+          }
+        />
       </Routes>
       <ToastContainer autoClose={3000} />
     </>
