@@ -24,7 +24,7 @@ const Home = () => {
       try {
         setIsLoading(true);
         const movies = await API.fetchPopularMovies(page);
-        console.log(movies);
+      
         setMovies(movies.results);
         setPageQty(movies.total_pages);
         if(movies.total_pages < page) {
@@ -46,9 +46,10 @@ const Home = () => {
     <main>
       {error && toast.error('Something wrong...Try again')}
       {isLoading && <Loader />}
+       <Wrapper ref={ref}>
       {movies && (
         <List >
-          <Wrapper ref={ref}>
+         
           {movies.map(({ poster_path, title, id }) => (
             <Item key={id}>
               <NavLink to={`/movies/${id}`} state={{ from: location }}>
@@ -61,9 +62,10 @@ const Home = () => {
               </NavLink>
             </Item>
           ))}
-          </Wrapper>
+          
         </List>
       )}
+      </Wrapper>
       {pageQty > 0 && (
         <BasicPagination
           count={pageQty}

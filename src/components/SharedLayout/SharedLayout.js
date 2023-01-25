@@ -8,16 +8,13 @@ import { useAuth } from 'hooks/useAuth';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/operations';
 
-
 export const SharedLayout = () => {
   const { isLoggedIn, email } = useAuth();
   const dispatch = useDispatch();
 
-
   const handleClick = () => {
     dispatch(logOut());
-
-  }
+  };
   return (
     <Container>
       <Header>
@@ -29,7 +26,7 @@ export const SharedLayout = () => {
         </Link>
 
         <nav>
-          {console.log('isAuth', isLoggedIn)}
+          
           {isLoggedIn ? (
             <>
               {' '}
@@ -51,15 +48,12 @@ export const SharedLayout = () => {
           )}
         </nav>
       </Header>
-     
-        <Suspense fallback={<Loader />}>
-          <Outlet />
-        </Suspense>
-   
+
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
 
       <Toaster position="bottom-left" reverseOrder={false} />
     </Container>
   );
 };
-
-

@@ -71,9 +71,10 @@ const Movies = (props) => {
       <SearchBox onSubmit={handleSubmit} />
       {error && toast.error('Something wrong...Try again')}
       {isLoading && <Loader />}
+       <Wrapper ref={ref}> 
       {movies && (
         <List>
-          <Wrapper ref={ref}> 
+         
           {movies.map(({ poster_path, title, id }) => (
             <Item key={id}>
               <NavLink to={`${id}`} state={{ from: location }}>
@@ -86,10 +87,11 @@ const Movies = (props) => {
               </NavLink>
             </Item>
           ))}
-          </Wrapper>
+         
         </List>
 
       )}
+       </Wrapper>
          {pageQty > 0 && (
         <BasicPagination
           count={pageQty}
