@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import  { Container, HeaderAppBar, Header, Wrapper, Logo, Link, ToolbarStyled } from './SharedLayout.styled';
+import  { Container, Wrapper, Logo, Link, ToolbarStyled } from './SharedLayout.styled';
 import { MdLocalMovies } from 'react-icons/md';
 import { Loader } from '../Loader/Loader';
 import { Toaster } from 'react-hot-toast';
@@ -58,7 +58,7 @@ import { logOut } from 'redux/operations';
 //     </Container>
 //   );
 // };
-import { AppBar, Button, CssBaseline, Toolbar, useScrollTrigger } from '@mui/material';
+import { AppBar, Button, CssBaseline,  useScrollTrigger } from '@mui/material';
 
 
 
