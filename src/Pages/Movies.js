@@ -1,7 +1,7 @@
 import * as API from '../api-service';
 import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Item, List, Image, Wrapper } from './Home.styled';
+import { Item, List, Image, Wrapper, MainWrapper } from './Home.styled';
 import { useSearchParams } from 'react-router-dom';
 import { SearchBox } from '../components/SearchBox/SearchBox';
 import { Loader } from '../components/Loader/Loader';
@@ -67,7 +67,7 @@ const Movies = (props) => {
   };
 
   return (
-    <main>
+    <MainWrapper>
       <SearchBox onSubmit={handleSubmit} />
       {error && toast.error('Something wrong...Try again')}
       {isLoading && <Loader />}
@@ -101,7 +101,7 @@ const Movies = (props) => {
           query={movieQuery}
         />
       )}
-    </main>
+    </MainWrapper>
   );
 };
 

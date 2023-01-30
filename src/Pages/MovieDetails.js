@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { BackLink } from '../components/BackLink/BackLink';
 import { MovieCard } from 'components/MovieCard/MovieCard';
+import { MainWrapper } from './Home.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -23,10 +24,10 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <main>
+    <MainWrapper>
       <BackLink to={backLinkHref}>Back</BackLink>
       <MovieCard movie={movie} />
-    </main>
+    </MainWrapper>
   );
 };
 

@@ -1,6 +1,7 @@
-// import { Slide, useScrollTrigger } from '@mui/material';
+
+import { AppBar, Toolbar} from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -12,22 +13,18 @@ export const Wrapper = styled.div`
 display: flex;
 align-items: center;
 justify-content: center;
-gap: 5px;
+gap: 12px;
 `;
 
-export const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 0;
-  margin-bottom: 16px;
-  border-bottom: 1px solid black;
+export const ToolbarStyled = styled(Toolbar)`
+ max-width: 1200px;
+  margin: 0 auto;
+padding: 0 16px;
+display: flex;
+justify-content: space-between;
+gap: 12px;
+align-items: center;
 
-  > nav {
-    display: flex;
-    align-items: center;
-  }
 `;
 
 export const Logo = styled.p`
@@ -39,48 +36,17 @@ export const Link = styled(NavLink)`
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
-  color: black;
+  color: white;
   font-weight: 500;
+  &:hover {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
 
   &.active {
-    color: white;
-    background-color: orangered;
+    color: blue;
+    background-color: white;
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
   }
 `;
 
-// function HideOnScroll(props) {
-//   const { children, window } = props;
-//   // Note that you normally won't need to set the window ref as useScrollTrigger
-//   // will default to window.
-//   // This is only being set here because the demo is in an iframe.
-//   const trigger = useScrollTrigger ({
-//     target: window ? window() : undefined,
-//   });
 
-//   return (
-//     <Slide appear={false} direction="down" in={!trigger}>
-//       {children}
-//     </Slide>
-//   );
-// }
-
-
-
-// export default function HideAppBar(props) {
-//   return (
-//    <>
-//       <CssBaseline />
-//       <HideOnScroll {...props}>
-//         <AppBar>
-//           <Toolbar>
-//             <Typography variant="h6" component="div">
-//               Scroll to hide App bar
-//             </Typography>
-//           </Toolbar>
-//         </AppBar>
-//       </HideOnScroll>
-//       <Toolbar />
-
-//    </>
-//   );
-// }

@@ -18,7 +18,7 @@ export const MovieCard = ({ movie }) => {
         />
         <Box>
           <Title>{title}</Title>
-          <Title>{`${release_date ? release_date.slice(0, 4) : ''}`}</Title>
+          <Title>{`${release_date ? release_date.slice(0, 4) : 'N/A'}`}</Title>
           <Title>
             <BsStar size="20" />{' '}
             {vote_average ? vote_average.toFixed(0) : 'N/A'}

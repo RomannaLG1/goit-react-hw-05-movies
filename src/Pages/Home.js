@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import * as API from '../api-service';
-import { Item, List, Image, Wrapper } from './Home.styled';
+import { Item, List, Image, Wrapper, MainWrapper } from './Home.styled';
 import { Loader } from '../components/Loader/Loader';
 import { toast } from 'react-toastify';
 import { BasicPagination } from 'components/Pagination/Pagination';
@@ -43,7 +43,7 @@ const Home = () => {
   }, [page, pageQty]);
 
   return (
-    <main>
+    <MainWrapper>
       {error && toast.error('Something wrong...Try again')}
       {isLoading && <Loader />}
        <Wrapper ref={ref}>
@@ -74,7 +74,7 @@ const Home = () => {
           navLink={NavLink}
         />
       )}
-    </main>
+    </MainWrapper>
   );
 };
 

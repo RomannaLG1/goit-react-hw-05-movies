@@ -44,13 +44,13 @@ setIsRefresh(false)
           <Route
             path="/register"
             element={
-              <RestrictedRoute redirectTo="/home" component={<Register />} />
+              <RestrictedRoute redirectTo="/" component={<Register />} />
             }
           />
           <Route
             path="/login"
             element={
-              <RestrictedRoute redirectTo="/home" component={<Login />} />
+              <RestrictedRoute redirectTo="/" component={<Login />} />
             }
           />
 
