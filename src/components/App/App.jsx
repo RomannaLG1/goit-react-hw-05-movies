@@ -11,6 +11,7 @@ import { PrivateRoute } from 'Route/PrivateRoute';
 import { useDispatch } from 'react-redux';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { refreshUser } from 'redux/userSlice';
+import { MainWrapper } from 'Pages/Home.styled';
 const Home = lazy(() => import('../../Pages/Home'));
 const Movies = lazy(() => import('../../Pages/Movies'));
 const MovieDetails = lazy(() => import('../../Pages/MovieDetails'));
@@ -18,25 +19,28 @@ const Cast = lazy(() => import('../Cast/Cast'));
 const Reviews = lazy(() => import('../Reviews/Reviews'));
 
 export const App = () => {
-    const [isRefresh, setIsRefresh] = useState(false)
+  const [isRefresh, setIsRefresh] = useState(true);
   const dispatch = useDispatch();
-  useEffect (() => {
+  useEffect(() => {
     const auth = getAuth();
-setIsRefresh(true);
+   
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      dispatch(refreshUser(currentUser));
+      dispatch(refreshUser(currentUser)).then(setIsRefresh(false));
     });
-setIsRefresh(false)
+    
     return () => {
       unsubscribe();
     };
+    
   }, [dispatch]);
 
   return isRefresh ? (
-    <b>Refresh user...</b>
+    <MainWrapper>
+      {console.log('refresh user')}
+      <b>Refresh user...</b>
+    </MainWrapper>
   ) : (
-
-       <>
+    <>
       <Routes>
         {' '}
         <Route path="/" element={<SharedLayout />}>
@@ -49,38 +53,36 @@ setIsRefresh(false)
           />
           <Route
             path="/login"
-            element={
-              <RestrictedRoute redirectTo="/" component={<Login />} />
-            }
+            element={<RestrictedRoute redirectTo="/" component={<Login />} />}
           />
 
           <Route
             path="home"
-            element={<PrivateRoute redirectTo="/login" component={<Home />} />}
+            element={<PrivateRoute refr={isRefresh} redirectTo="/login" component={<Home />} />}
           />
 
           <Route
             path="movies"
             element={
-              <PrivateRoute redirectTo="/login" component={<Movies />} />
+              <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<Movies />} />
             }
           />
           <Route
             path="movies/:movieId"
             element={
-              <PrivateRoute redirectTo="/login" component={<MovieDetails />} />
+              <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<MovieDetails />} />
             }
           >
             <Route
               path="cast"
               element={
-                <PrivateRoute redirectTo="/login" component={<Cast />} />
+                <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<Cast />} />
               }
             />
             <Route
               path="reviews"
               element={
-                <PrivateRoute redirectTo="/login" component={<Reviews />} />
+                <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<Reviews />} />
               }
             />
           </Route>
@@ -88,16 +90,11 @@ setIsRefresh(false)
         <Route
           path="*"
           element={
-            <RestrictedRoute
-              redirectTo="/"
-              component={<Navigate to={'/'} />}
-            />
+            <RestrictedRoute redirectTo="/" component={<Navigate to={'/'} />} />
           }
         />
       </Routes>
       <ToastContainer autoClose={3000} />
     </>
-  )
- 
-
+  );
 };

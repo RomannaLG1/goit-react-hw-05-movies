@@ -15,14 +15,12 @@ const userSlice = createSlice({
   initialState,
   extraReducers: {
     [register.fulfilled](state, action) {
-      console.log('action', action);
       state.email = action.payload.user.email;
       state.token = action.payload.user.accessToken;
       state.id = action.payload.user.uid;
       state.isLoggedIn = true;
     },
     [login.fulfilled](state, action) {
-      console.log('action', action);
       state.email = action.payload.user.email;
       state.token = action.payload.user.accessToken;
       state.id = action.payload.user.uid;
@@ -37,7 +35,7 @@ const userSlice = createSlice({
   },
   reducers: {
     refreshUser(state, action) {
-      console.log('action', action);
+      // console.log('action', action);
       state.email = action.payload.email;
       state.token = action.payload.accessToken;
       state.id = action.payload.uid;

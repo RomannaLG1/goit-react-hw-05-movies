@@ -11,13 +11,19 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   // const [page, setPage] = useState(parseInt(props.location.search?.split('=')[1] || 1));
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(parseInt(localStorage.getItem('page')) || 1);
   const [pageQty, setPageQty] = useState(0);
   const location = useLocation();
   const ref = useRef(null);
   useEffect(() => {
     ref.current.scrollIntoView({ behavior: 'smooth' });
   }, [page]);
+
+  useEffect(() => {
+    window.localStorage.setItem('page', JSON.stringify(page));
+  }, [page])
+
+
 
   useEffect(() => {
     const fetchMovies = async page => {

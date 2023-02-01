@@ -66,6 +66,8 @@ const Movies = (props) => {
     
   };
 
+
+
   return (
     <MainWrapper>
       <SearchBox onSubmit={handleSubmit} />
