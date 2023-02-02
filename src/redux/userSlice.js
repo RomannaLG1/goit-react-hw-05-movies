@@ -35,7 +35,7 @@ const userSlice = createSlice({
   },
   reducers: {
     refreshUser(state, action) {
-      // console.log('action', action);
+      console.log('action', action);
       state.email = action.payload.email;
       state.token = action.payload.accessToken;
       state.id = action.payload.uid;

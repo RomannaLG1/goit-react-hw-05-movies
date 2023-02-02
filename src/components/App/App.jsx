@@ -25,6 +25,7 @@ export const App = () => {
     const auth = getAuth();
    
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      console.log('currentUser', currentUser);
       dispatch(refreshUser(currentUser));
       setIsRefresh(false);
     });
