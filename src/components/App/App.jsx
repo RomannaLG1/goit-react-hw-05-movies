@@ -23,17 +23,20 @@ export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const auth = getAuth();
-   
+
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       console.log('currentUser', currentUser);
-      dispatch(refreshUser(currentUser));
-      setIsRefresh(false);
+      if (currentUser) {
+        dispatch(refreshUser(currentUser));
+        setIsRefresh(false);
+      } else {
+        setIsRefresh(false);
+      }
     });
-    
+
     return () => {
       unsubscribe();
     };
-    
   }, [dispatch]);
 
   return isRefresh ? (
@@ -60,31 +63,53 @@ export const App = () => {
 
           <Route
             path="home"
-            element={<PrivateRoute refr={isRefresh} redirectTo="/login" component={<Home />} />}
+            element={
+              <PrivateRoute
+                refr={isRefresh}
+                redirectTo="/login"
+                component={<Home />}
+              />
+            }
           />
 
           <Route
             path="movies"
             element={
-              <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<Movies />} />
+              <PrivateRoute
+                refr={isRefresh}
+                redirectTo="/login"
+                component={<Movies />}
+              />
             }
           />
           <Route
             path="movies/:movieId"
             element={
-              <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<MovieDetails />} />
+              <PrivateRoute
+                refr={isRefresh}
+                redirectTo="/login"
+                component={<MovieDetails />}
+              />
             }
           >
             <Route
               path="cast"
               element={
-                <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<Cast />} />
+                <PrivateRoute
+                  refr={isRefresh}
+                  redirectTo="/login"
+                  component={<Cast />}
+                />
               }
             />
             <Route
               path="reviews"
               element={
-                <PrivateRoute refr={isRefresh}  redirectTo="/login" component={<Reviews />} />
+                <PrivateRoute
+                  refr={isRefresh}
+                  redirectTo="/login"
+                  component={<Reviews />}
+                />
               }
             />
           </Route>
