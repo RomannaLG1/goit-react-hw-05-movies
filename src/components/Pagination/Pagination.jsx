@@ -1,7 +1,11 @@
 import { PaginationItem } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+
 export const BasicPagination = ({ count, page, onChange, navLink }) => {
+  // useEffect (() => {
+  //   localStorage.setItem('page', page);
+  // }, [page]);
   return (
     <Stack spacing={3}>
       <Pagination
