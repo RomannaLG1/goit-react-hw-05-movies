@@ -51,7 +51,7 @@ export const logOut = createAsyncThunk('user/logout', async (_, thunkAPI) => {
 //     try {
 //       const auth = getAuth();
 
-//       const currentUser = onAuthStateChanged(auth, (currentUser) => {return currentUser});
+//       const res = onAuthStateChanged(auth, (currentUser) => {return currentUser});
 
 //     } catch (error) {
 //       return thunkAPI.rejectWithValue(error.message);
