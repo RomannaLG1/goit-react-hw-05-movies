@@ -1,14 +1,17 @@
-import { useState } from 'react';
-import {Wrapper, Input, Button } from './SearchBox.styled';
-import { HiSearch } from "react-icons/hi";
+import { useEffect, useState } from 'react';
+import { Wrapper, Input, Button } from './SearchBox.styled';
+import { HiSearch } from 'react-icons/hi';
 export const SearchBox = ({ onSubmit }) => {
-
-  const [searchQuery, setSearchQuery] = useState('');
- 
+  const [searchQuery, setSearchQuery] = useState(
+    JSON.parse(localStorage.getItem('searchQuery')) || ''
+  );
+  useEffect(() => {
+    window.localStorage.setItem('searchQuery', JSON.stringify(searchQuery));
+  }, [searchQuery]);
 
   const handleSubmit = e => {
     e.preventDefault();
-   onSubmit(searchQuery);
+    onSubmit(searchQuery);
     setSearchQuery('');
   };
 
@@ -19,21 +22,19 @@ export const SearchBox = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Wrapper>
- 
-           <Input
-        placeholder="Enter movie..."
-        type="text"
-        name="searchQuery"
-        value={searchQuery}
-        onChange={handleInput}
-        required
-        autoFocus
-      />
-            <Button>
-        <HiSearch size="25" />
-      </Button> 
+        <Input
+          placeholder="Enter movie..."
+          type="text"
+          name="searchQuery"
+          value={searchQuery}
+          onChange={handleInput}
+          required
+          autoFocus
+        />
+        <Button>
+          <HiSearch size="25" />
+        </Button>
       </Wrapper>
-   
     </form>
   );
 };

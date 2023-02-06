@@ -39,7 +39,7 @@ export const MovieCard = ({ movie }) => {
         </Box>
       </Wrapper>
 
-      <Suspense fallback={<Loader/>}>
+      <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
     </>

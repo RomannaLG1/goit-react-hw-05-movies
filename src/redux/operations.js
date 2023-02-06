@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 export const register = createAsyncThunk(
   'user/setUser',
@@ -16,6 +17,7 @@ export const register = createAsyncThunk(
       const res = await createUserWithEmailAndPassword(auth, email, password);
       return res;
     } catch (error) {
+      toast.error("Something wrong, try again")
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -30,6 +32,7 @@ export const login = createAsyncThunk(
       const res = await signInWithEmailAndPassword(auth, email, password);
       return res;
     } catch (error) {
+      toast.error("Something wrong, try again")
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -41,6 +44,7 @@ export const logOut = createAsyncThunk('user/logout', async (_, thunkAPI) => {
     const res = await signOut(auth);
     return res;
   } catch (error) {
+    toast.error("Something wrong, try again")
     return thunkAPI.rejectWithValue(error.message);
   }
 });
