@@ -1,10 +1,9 @@
 // import { Button, TextField } from '@mui/material';
 import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { ErrorMessage, ErrorWrapper, FormStyled } from './Form.styled';
+import { FormStyled } from './Form.styled';
 
 export const Form = ({ event, onSubmit }) => {
-
   const {
     register,
     formState: { errors, isValid },
@@ -24,7 +23,7 @@ export const Form = ({ event, onSubmit }) => {
       <TextField
         label="Email"
         error={!!errors.email}
-        helperText={errors.email ? errors.email.message : ""}
+        helperText={errors.email ? errors.email.message : ''}
         {...register('email', {
           required: 'Email is required field',
           pattern: {
@@ -35,18 +34,12 @@ export const Form = ({ event, onSubmit }) => {
         })}
         type="email"
       />
-{/* 
-      <ErrorWrapper>
-        {errors?.email && (
-          <ErrorMessage>{errors?.email.message || 'Error'}</ErrorMessage>
-        )}
-      </ErrorWrapper> */}
 
       <TextField
         label="Password"
         type="password"
         error={!!errors.password}
-        helperText={errors.password ? errors.password.message : ""}
+        helperText={errors.password ? errors.password.message : ''}
         {...register('password', {
           required: 'Password is required field',
           minLength: {
@@ -59,11 +52,7 @@ export const Form = ({ event, onSubmit }) => {
           },
         })}
       />
-      {/* <ErrorWrapper>
-        {errors?.password && (
-          <ErrorMessage>{errors?.password.message || 'Error'}</ErrorMessage>
-        )}
-      </ErrorWrapper> */}
+
       <Button type="submit" variant="contained" disabled={!isValid}>
         {event}
       </Button>
